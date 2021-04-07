@@ -2,8 +2,6 @@
 
 NODE_VERSION=8.11.1
 
-apt-get -y iunstall localepurge
-
 # This script will be run in chroot under qemu.
 
 #echo "Prevent services starting during install, running under chroot"
@@ -39,20 +37,20 @@ echo "Generating required locales:"
 [ -f /etc/locale.gen ] || touch -m /etc/locale.gen
 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 locale-gen
-echo "Removing unused locales"
-echo "en_US.UTF-8" >> /etc/locale.nopurge
+#echo "Removing unused locales"
+#echo "en_US.UTF-8" >> /etc/locale.nopurge
 # To remove existing locale data we must turn off the dpkg hook
-sed -i -e 's/^USE_DPKG/#USE_DPKG/' /etc/locale.nopurge
+#sed -i -e 's/^USE_DPKG/#USE_DPKG/' /etc/locale.nopurge
 # Ensure that the package knows it has been configured
-sed -i -e 's/^NEEDSCONFIGFIRST/#NEEDSCONFIGFIRST/' /etc/locale.nopurge
-dpkg-reconfigure localepurge -f noninteractive
-localepurge
+#sed -i -e 's/^NEEDSCONFIGFIRST/#NEEDSCONFIGFIRST/' /etc/locale.nopurge
+#dpkg-reconfigure localepurge -f noninteractive
+#localepurge
 # Turn dpkg feature back on, it will handle further locale-cleaning
-sed -i -e 's/^#USE_DPKG/USE_DPKG/' /etc/locale.nopurge
-dpkg-reconfigure localepurge -f noninteractive
-echo "Final locale list"
-locale -a
-echo ""
+#sed -i -e 's/^#USE_DPKG/USE_DPKG/' /etc/locale.nopurge
+#dpkg-reconfigure localepurge -f noninteractive
+#echo "Final locale list"
+#locale -a
+#echo ""
 
 #Adding Main user Volumio
 echo "Adding Volumio User"
@@ -133,6 +131,9 @@ chmod 777 /etc/hosts
   #echo ' Adding Raspbian Repo Key'
   #get https://archive.raspbian.org/raspbian.public.key -O - | sudo apt-key add -
 
+  echo "Installing alsa"
+  apt-get -y install alsa-base alsa-utils
+
   echo "Installing ARM Node Environment"
   apt-get -y install nodejs
   
@@ -177,51 +178,55 @@ chmod 777 /etc/hosts
      echo "Installing MPD for armv7"
      # First we manually install a newer alsa-lib to achieve Direct DSD support
 
-     echo "Installing alsa-lib 1.1.3" 
-     wget http://repo.volumio.org/Volumio2/Binaries/libasound2/armv7/libasound2_1.1.3-5_armhf.deb
-     wget http://repo.volumio.org/Volumio2/Binaries/libasound2/armv7/libasound2-data_1.1.3-5_all.deb
-     wget http://repo.volumio.org/Volumio2/Binaries/libasound2/armv7/libasound2-dev_1.1.3-5_armhf.deb
-     dpkg --force-all -i libasound2-data_1.1.3-5_all.deb
-     dpkg --force-all -i libasound2_1.1.3-5_armhf.deb
-     dpkg --force-all -i libasound2-dev_1.1.3-5_armhf.deb
-     rm libasound2-data_1.1.3-5_all.deb
-     rm libasound2_1.1.3-5_armhf.deb
-     rm libasound2-dev_1.1.3-5_armhf.deb
+     #echo "Installing alsa-lib 1.1.3" 
+     #wget http://repo.volumio.org/Volumio2/Binaries/libasound2/armv7/libasound2_1.1.3-5_armhf.deb
+     #wget http://repo.volumio.org/Volumio2/Binaries/libasound2/armv7/libasound2-data_1.1.3-5_all.deb
+     #wget http://repo.volumio.org/Volumio2/Binaries/libasound2/armv7/libasound2-dev_1.1.3-5_armhf.deb
+     #dpkg --force-all -i libasound2-data_1.1.3-5_all.deb
+     #dpkg --force-all -i libasound2_1.1.3-5_armhf.deb
+     #dpkg --force-all -i libasound2-dev_1.1.3-5_armhf.deb
+     #rm libasound2-data_1.1.3-5_all.deb
+     #rm libasound2_1.1.3-5_armhf.deb
+     #rm libasound2-dev_1.1.3-5_armhf.deb
 
      echo "Installing MPD 20.18"
-     wget http://repo.volumio.org/Volumio2/Binaries/mpd-DSD/mpd_0.20.18-1_armv7.deb
-     dpkg -i mpd_0.20.18-1_armv7.deb
-     rm mpd_0.20.18-1_armv7.deb
+     #wget http://repo.volumio.org/Volumio2/Binaries/mpd-DSD/mpd_0.20.18-1_armv7.deb
+     #dpkg -i mpd_0.20.18-1_armv7.deb
+     #rm mpd_0.20.18-1_armv7.deb
+     apt-get -y install mpd mpc
 
     echo "Installing Upmpdcli for armv7"
-    wget http://repo.volumio.org/Volumio2/Binaries/upmpdcli/armv7/libupnpp3_0.15.1-1_armhf.deb
-    wget http://repo.volumio.org/Volumio2/Binaries/upmpdcli/armv7/libupnp6_1.6.20.jfd5-1_armhf.deb
-    wget http://repo.volumio.org/Volumio2/Binaries/upmpdcli/armv7/upmpdcli_1.2.12-1_armhf.deb
-    dpkg -i libupnpp3_0.15.1-1_armhf.deb
-    dpkg -i libupnp6_1.6.20.jfd5-1_armhf.deb
-    dpkg -i upmpdcli_1.2.12-1_armhf.deb
-    rm libupnpp3_0.15.1-1_armhf.deb
-    rm libupnp6_1.6.20.jfd5-1_armhf.deb
-    rm upmpdcli_1.2.12-1_armhf.deb
+    apt-get -y install upmpdcli
+    
+    #wget http://repo.volumio.org/Volumio2/Binaries/upmpdcli/armv7/libupnpp3_0.15.1-1_armhf.deb
+    #wget http://repo.volumio.org/Volumio2/Binaries/upmpdcli/armv7/libupnp6_1.6.20.jfd5-1_armhf.deb
+    #wget http://repo.volumio.org/Volumio2/Binaries/upmpdcli/armv7/upmpdcli_1.2.12-1_armhf.deb
+    #dpkg -i libupnpp3_0.15.1-1_armhf.deb
+    #dpkg -i libupnp6_1.6.20.jfd5-1_armhf.deb
+    #dpkg -i upmpdcli_1.2.12-1_armhf.deb
+    #rm libupnpp3_0.15.1-1_armhf.deb
+    #rm libupnp6_1.6.20.jfd5-1_armhf.deb
+    #rm upmpdcli_1.2.12-1_armhf.deb
 
     echo "Adding volumio-remote-updater for armv7"
     wget http://repo.volumio.org/Volumio2/Binaries/arm/volumio-remote-updater_1.3-armv7.deb
     dpkg -i volumio-remote-updater_1.3-armv7.deb
     rm volumio-remote-updater_1.3-armv7.deb
 
-  fi
   #Remove autostart of upmpdcli
-  update-rc.d upmpdcli remove
+  #update-rc.d upmpdcli remove
 
   echo "Installing Shairport-Sync"
-  wget http://repo.volumio.org/Volumio2/Binaries/shairport-sync_3.3.6-arm.deb
-  dpkg -i shairport-sync_3.3.6-arm.deb
-  rm shairport-sync_3.3.6-arm.deb
+  apt-get -y install shairport-sync
+  
+  #wget http://repo.volumio.org/Volumio2/Binaries/shairport-sync_3.3.6-arm.deb
+  #dpkg -i shairport-sync_3.3.6-arm.deb
+  #rm shairport-sync_3.3.6-arm.deb
 
-  echo "Installing Shairport-Sync Metadata Reader"
-  wget http://repo.volumio.org/Volumio2/Binaries/shairport-sync-metadata-reader-arm.tar.gz
-  tar xf shairport-sync-metadata-reader-arm.tar.gz
-  rm /shairport-sync-metadata-reader-arm.tar.gz
+  #echo "Installing Shairport-Sync Metadata Reader"
+  #wget http://repo.volumio.org/Volumio2/Binaries/shairport-sync-metadata-reader-arm.tar.gz
+  #tar xf shairport-sync-metadata-reader-arm.tar.gz
+  #rm /shairport-sync-metadata-reader-arm.tar.gz
 
   echo "Volumio Init Updater"
   wget http://repo.volumio.org/Volumio2/Binaries/arm/volumio-init-updater-v2 -O /usr/local/sbin/volumio-init-updater
@@ -242,10 +247,14 @@ chmod 777 /etc/hosts
   wget http://repo.volumio.org/Volumio2/Binaries/arm/hostapd-edimax -P /usr/sbin/
   chmod a+x /usr/sbin/hostapd-edimax
 
-  echo "Adding special version for kernel 4.19"
-  apt-get -y install hostapd
+  #echo "Adding special version for kernel 4.19"
   #wget http://repo.volumio.org/Volumio2/Binaries/arm/hostapd-2.8 -P /usr/sbin/
   #chmod a+x /usr/sbin/hostapd-2.8
+  echo "install hostapd"
+  apt-get -y install hostapd
+
+  echo "install avahi"
+  apt-get -y install avahi-daemon avahi-utils
 
   echo "interface=wlan0
 ssid=Volumio
@@ -339,13 +348,13 @@ echo "Setting Mpd to SystemD instead of Init"
 update-rc.d mpd remove
 systemctl enable mpd.service
 
-echo "Preventing hotspot services from starting at boot"
-systemctl disable hotspot.service
-systemctl disable dnsmasq.service
+#echo "Preventing hotspot services from starting at boot"
+#systemctl disable hotspot.service
+#systemctl disable dnsmasq.service
 
-echo "Preventing un-needed dhcp servers to start automatically"
-systemctl disable isc-dhcp-server.service
-systemctl disable dhcpd.service
+#echo "Preventing un-needed dhcp servers to start automatically"
+#systemctl disable isc-dhcp-server.service
+#systemctl disable dhcpd.service
 
 echo "Linking Volumio Command Line Client"
 ln -s /volumio/app/plugins/system_controller/volumio_command_line_client/volumio.sh /usr/local/bin/volumio
@@ -378,8 +387,8 @@ touch /var/lib/alsa/asound.state
 echo '#' > /var/lib/alsa/asound.state
 chmod 777 /var/lib/alsa/asound.state
 
-echo "Fixing UPNP L16 Playback issue"
-grep -v '^@ENABLEL16' /usr/share/upmpdcli/protocolinfo.txt > /usr/share/upmpdcli/protocolinfo.txtrepl && mv /usr/share/upmpdcli/protocolinfo.txtrepl /usr/share/upmpdcli/protocolinfo.txt
+#echo "Fixing UPNP L16 Playback issue"
+#grep -v '^@ENABLEL16' /usr/share/upmpdcli/protocolinfo.txt > /usr/share/upmpdcli/protocolinfo.txtrepl && mv /usr/share/upmpdcli/#protocolinfo.txtrepl /usr/share/upmpdcli/protocolinfo.txt
 
 #####################
 #Network Settings and Optimizations#-----------------------------------------
@@ -425,8 +434,8 @@ nameserver 208.67.220.220" > /etc/resolv.conf.tail.tmpl
 chmod 666 /etc/resolv.conf.*
 ln -s /etc/resolv.conf.tail.tmpl /etc/resolv.conf.tail
 
-echo "Removing Avahi Service for UDISK-SSH"
-rm /etc/avahi/services/udisks.service
+#echo "Removing Avahi Service for UDISK-SSH"
+#rm /etc/avahi/services/udisks.service
 
 #####################
 #CPU  Optimizations#-----------------------------------------
