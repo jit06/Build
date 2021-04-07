@@ -2,6 +2,8 @@
 
 NODE_VERSION=8.11.1
 
+apt-get -y iunstall localepurge
+
 # This script will be run in chroot under qemu.
 
 #echo "Prevent services starting during install, running under chroot"
@@ -122,7 +124,7 @@ echo volumio > /etc/hostname
 chmod 777 /etc/hostname
 chmod 777 /etc/hosts
 
-echo "nameserver 8.8.8.8" > /etc/resolv.conf
+#echo "nameserver 8.8.8.8" > /etc/resolv.conf
 
 ################
 #Volumio System#---------------------------------------------------
