@@ -256,6 +256,9 @@ chmod 777 /etc/hosts
   echo "install avahi"
   apt-get -y install avahi-daemon avahi-utils
 
+  echo "install samba"
+  apt-get -y install
+
   echo "interface=wlan0
 ssid=Volumio
 channel=4
