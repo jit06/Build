@@ -7,8 +7,6 @@ echo "=============================================================="
 
 VARIANT="custom-odroidc1"
 
-cp scripts/volumioconfig_C1.sh /
-
 echo 'Cloning Volumio Node Backend'
 git clone --depth 1 -b master --single-branch https://github.com/volumio/Volumio2.git /volumio
 echo 'Cloning Volumio Classic UI'
@@ -33,17 +31,16 @@ echo "==                  Volumio config C1                       =="
 echo "=============================================================="
 sh scripts/volumioconfig_C1.sh
 
+echo "Base System Installed"
 
 echo "=============================================================="
 echo "==                       STEP 2                             =="
 echo "=============================================================="
-echo "Base System Installed"
-rm "/volumioconfig.sh"
 ###Dirty fix for mpd.conf TODO use volumio repo
 cp volumio/etc/mpd.conf "/etc/mpd.conf"
 
 CUR_DATE=$(date)
-#Write some Version informations
+# Write some Version informations
 echo "Writing system information"
 echo "VOLUMIO_VARIANT=\"${VARIANT}\"
 VOLUMIO_TEST=\"FALSE\"
