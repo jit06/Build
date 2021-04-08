@@ -81,7 +81,7 @@ chmod 777 /etc/hosts
 
   echo "------------- Installing Volumio Modules"
   cd /volumio
-  wget http://repo.volumio.org/Volumio2/node_modules_arm-${NODE_VERSION}.tar.gz
+  wget https://repo.volumio.org/Volumio2/node_modules_arm-${NODE_VERSION}.tar.gz
   tar xf node_modules_arm-${NODE_VERSION}.tar.gz
   rm node_modules_arm-${NODE_VERSION}.tar.gz
   
@@ -107,18 +107,18 @@ chmod 777 /etc/hosts
   chmod 777 /etc/os-release
   
   echo "------------- Installing Snapcast for multiroom"
-  wget http://repo.volumio.org/Volumio2/Binaries/arm/snapserver -P /usr/sbin/
-  wget http://repo.volumio.org/Volumio2/Binaries/arm/snapclient -P  /usr/sbin/
+  wget https://repo.volumio.org/Volumio2/Binaries/arm/snapserver -P /usr/sbin/
+  wget https://repo.volumio.org/Volumio2/Binaries/arm/snapclient -P  /usr/sbin/
   chmod a+x /usr/sbin/snapserver
   chmod a+x /usr/sbin/snapclient
 
   echo "------------- Installing Zsync"
   rm /usr/bin/zsync
-  wget http://repo.volumio.org/Volumio2/Binaries/arm/zsync -P /usr/bin/
+  wget https://repo.volumio.org/Volumio2/Binaries/arm/zsync -P /usr/bin/
   chmod a+x /usr/bin/zsync
 
   echo "------------- Adding special version for edimax dongle"
-  wget http://repo.volumio.org/Volumio2/Binaries/arm/hostapd-edimax -P /usr/sbin/
+  wget https://repo.volumio.org/Volumio2/Binaries/arm/hostapd-edimax -P /usr/sbin/
   chmod a+x /usr/sbin/hostapd-edimax
 
   echo "interface=wlan0
