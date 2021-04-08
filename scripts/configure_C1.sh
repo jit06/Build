@@ -25,8 +25,6 @@ cp volumio/etc/ssh/sshd_config /etc/ssh/sshd_config
 #Mpd
 cp volumio/etc/mpd.conf /etc/mpd.conf
 chmod 777 /etc/mpd.conf
-#Log via JournalD in RAM
-#cp volumio/etc/systemd/journald.conf /etc/systemd/journald.conf
 #Volumio SystemD Services
 cp -r volumio/lib /
 # Network
@@ -62,9 +60,6 @@ cp -rp volumio/usr/*  /usr/
 #SSH
 cp volumio/bin/volumiossh.sh /bin/volumiossh.sh
 chmod a+x /bin/volumiossh.sh
-#CPU TWEAK
-#cp volumio/bin/volumio_cpu_tweak /bin/volumio_cpu_tweak
-#chmod a+x /bin/volumio_cpu_tweak
 #LAN HOTPLUG
 cp volumio/etc/default/ifplugd /etc/default/ifplugd
 #TRIGGERHAPPY
