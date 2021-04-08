@@ -62,7 +62,6 @@ rm -rf /usr/share/man/* /usr/share/groff/* /usr/share/info/*
 rm -rf /usr/share/lintian/* /usr/share/linda/* /var/cache/man/*
 
 echo "Stripping binaries"
-find /lib/ -type f  -exec strip --strip-all > /dev/null 2>&1 {} ';'
 find /bin/ -type f  -exec strip --strip-all > /dev/null 2>&1 {} ';'
 find /usr/sbin -type f  -exec strip --strip-all > /dev/null 2>&1 {} ';'
 find /usr/local/bin/ -type f  -exec strip --strip-all > /dev/null 2>&1 {} ';'
