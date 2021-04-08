@@ -77,7 +77,7 @@ chmod 777 /etc/hosts
 #Volumio System#---------------------------------------------------
 ################
   echo "------------- Installing required packages"
-  apt-get -y install alsa-base alsa-utils nodejs mpd mpc shairport-sync hostapd avahi-daemon avahi-utils samba upmpdcli libcurl4 libavahi-compat-libdnssd1
+  apt-get -y install alsa-base alsa-utils nodejs mpd mpc shairport-sync hostapd avahi-daemon avahi-utils samba libcurl4 libavahi-compat-libdnssd1
 
   echo "------------- Installing Volumio Modules"
   cd /volumio
