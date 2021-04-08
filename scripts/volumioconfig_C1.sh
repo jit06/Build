@@ -99,7 +99,10 @@ chmod 777 /etc/hosts
   echo "------------- Tune system for volumio"
   ln -s /usr/bin/shairport-sync /usr/local/bin/shairport-sync
   ln -s /usr/bin/node /usr/local/bin
-  sed -i "s/exit 0/mkdir \/var\/log\/samba;exit 0/" /etc/rc.local
+  systemctl disable smbd
+  systemctl disable nmbd
+  sed -i "s/exit 0/mkdir \/var\/log\/samba;systemctl start smbd; systemctl start nmbd/" /etc/rc.local
+  echo "exit 0" >> /etc/rc.local
   
 
   echo "------------- Changing os-release permissions"
