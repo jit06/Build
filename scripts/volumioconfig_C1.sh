@@ -77,7 +77,7 @@ chmod 777 /etc/hosts
 #Volumio System#---------------------------------------------------
 ################
   echo "------------- Installing required packages"
-  apt-get -y install alsa-base alsa-utils nodejs mpd mpc shairport-sync hostapd avahi-daemon avahi-utils samba libcurl4 libavahi-compat-libdnssd1
+  apt-get -y install alsa-base alsa-utils nodejs mpd mpc shairport-sync hostapd avahi-daemon avahi-utils samba libcurl4 libavahi-compat-libdnssd1 cifs-utils isc-dhcp-server
 
   echo "------------- Installing Volumio Modules"
   cd /volumio
@@ -195,17 +195,19 @@ ln -s /lib/systemd/system/firststart.service /etc/systemd/system/multi-user.targ
 echo "------------- Adding Iptables Service"
 ln -s /lib/systemd/system/iptables.service /etc/systemd/system/multi-user.target.wants/iptables.service
 
-#echo "Disabling SSH by default"
-#systemctl disable ssh.service
-
-##echo "Enable Volumio SSH enabler"
-#ln -s /lib/systemd/system/volumiossh.service /etc/systemd/system/multi-user.target.wants/volumiossh.service
-
 echo "------------- Enable Volumio Log Rotation Service"
 ln -s /lib/systemd/system/volumiologrotate.service /etc/systemd/system/multi-user.target.wants/volumiologrotate.service
 
 echo "------------- Setting Mpd to SystemD instead of Init"
 systemctl enable mpd.service
+
+echo "------------- Preventing hotspot services from starting at boot"
+systemctl disable hotspot.service
+systemctl disable dnsmasq.service
+
+echo "------------- Preventing un-needed dhcp servers to start automatically"
+systemctl disable isc-dhcp-server.service
+systemctl disable dhcpd.service
 
 echo "------------- Linking Volumio Command Line Client"
 ln -s /volumio/app/plugins/system_controller/volumio_command_line_client/volumio.sh /usr/local/bin/volumio
