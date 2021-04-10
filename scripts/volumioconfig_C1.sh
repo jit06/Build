@@ -96,6 +96,12 @@ chmod 777 /etc/hosts
   mkdir /imgpart
   chown -R volumio:volumio /imgpart
 
+  echo "------------- disable initial network management and wpa"
+  systemctl disable network-manager
+  systemctl mask network-manager
+  systemctl disable wpa_supplicant
+  systemctl mask wpa_supplicant
+
   echo "------------- Tune system for volumio"
   ln -s /usr/bin/shairport-sync /usr/local/bin/shairport-sync
   ln -s /usr/bin/node /usr/local/bin
