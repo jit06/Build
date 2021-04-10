@@ -107,9 +107,10 @@ chmod 777 /etc/hosts
   ln -s /usr/bin/node /usr/local/bin
   systemctl disable smbd
   systemctl disable nmbd
-  sed -i "s/exit 0/mkdir \/var\/log\/samba;systemctl start smbd; systemctl start nmbd/" /etc/rc.local
+  sed -i "s/exit 0/ /" /etc/rc.local
+  echo "mkdir /var/log/samba; systemctl start smbd; systemctl start nmbd" >> /etc/rc.local
+  echo "if [ -e /dev/mmcblk1p1 ]; then mount /dev/mmcblk1p1 /mnt/SDCARD ; fi" >> /etc/rc.local
   echo "exit 0" >> /etc/rc.local
-  
 
   echo "------------- Changing os-release permissions"
   chown volumio:volumio /etc/os-release
@@ -155,6 +156,7 @@ echo "------------- Creating Volumio Folder Structure"
 mkdir -p /mnt/NAS
 mkdir -p /media
 ln -s /media /mnt/USB
+mkdir /mnt/SDCARD
 
 #Internal Storage Folder
 mkdir /data/INTERNAL
@@ -170,6 +172,7 @@ chmod -R 777 /data/INTERNAL
 # Symlinking Mount Folders to Mpd's Folder
 ln -s /mnt/NAS /var/lib/mpd/music
 ln -s /mnt/USB /var/lib/mpd/music
+ln -s /mnt/SDCARD /var/lib/mpd/music
 ln -s /data/INTERNAL /var/lib/mpd/music
 
 echo "------------- Prepping MPD environment"
