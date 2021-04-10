@@ -5,7 +5,7 @@ echo "=============================================================="
 echo "==                       STEP 1                             =="
 echo "=============================================================="
 
-VARIANT="custom-odroidc1"
+VARIANT="volumio"
 
 echo 'Cloning Volumio Node Backend'
 git clone --depth 1 -b master --single-branch https://github.com/volumio/Volumio2.git /volumio
