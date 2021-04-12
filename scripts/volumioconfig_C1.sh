@@ -111,10 +111,15 @@ chmod 777 /etc/hosts
   
   echo "if [ ! -d /var/log/samba ]; then  mkdir /var/log/samba; fi" >> /etc/rc.local
   echo "systemctl restart smbd; systemctl restart nmbd" >> /etc/rc.local
-  echo ""
+  echo "" >> /etc/rc.local
   echo "if [ -e /dev/mmcblk1p1 ]; then mount /dev/mmcblk1p1 /mnt/SDCARD ; fi" >> /etc/rc.local
+  echo "" >> /etc/rc.local
   echo "exit 0" >> /etc/rc.local
 
+  echo echo "------------- Setting udev rules to automount USB drive"
+  echo "ACTION==\"add\", SUBSYSTEMS==\"usb\", SUBSYSTEM==\"block\", ENV{ID_FS_USAGE}==\"filesystem\", RUN{program}+=\"/usr/bin/systemd-mount --no-block --automount=yes --collect $devnode /mnt/USB\"" >> /etc/udev/rules.d/99-usbmount.rules
+  chmod +x /etc/udev/rules.d/99-usbmount.rules
+    
   echo "------------- Changing os-release permissions"
   chown volumio:volumio /etc/os-release
   chmod 777 /etc/os-release
@@ -157,8 +162,6 @@ chmod u+s /bin/ping
 echo "------------- Creating Volumio Folder Structure"
 # Media Mount Folders
 mkdir -p /mnt/NAS
-mkdir -p /media
-ln -s /media /mnt/USB
 mkdir /mnt/SDCARD
 
 #Internal Storage Folder
