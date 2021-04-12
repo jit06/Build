@@ -108,7 +108,10 @@ chmod 777 /etc/hosts
   systemctl disable smbd
   systemctl disable nmbd
   sed -i "s/exit 0/ /" /etc/rc.local
-  echo "mkdir /var/log/samba; systemctl start smbd; systemctl start nmbd" >> /etc/rc.local
+  
+  echo "if [ ! -d /var/log/samba ]; then  mkdir /var/log/samba; fi" >> /etc/rc.local
+  echo "systemctl restart smbd; systemctl restart nmbd" >> /etc/rc.local
+  echo ""
   echo "if [ -e /dev/mmcblk1p1 ]; then mount /dev/mmcblk1p1 /mnt/SDCARD ; fi" >> /etc/rc.local
   echo "exit 0" >> /etc/rc.local
 
