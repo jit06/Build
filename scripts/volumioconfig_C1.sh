@@ -117,7 +117,7 @@ chmod 777 /etc/hosts
   echo "exit 0" >> /etc/rc.local
 
   echo echo "------------- Setting udev rules to automount USB drive"
-  echo "ACTION==\"add\", SUBSYSTEMS==\"usb\", SUBSYSTEM==\"block\", ENV{ID_FS_USAGE}==\"filesystem\", RUN{program}+=\"/usr/bin/systemd-mount --no-block --automount=yes --collect $devnode /mnt/USB\"" >> /etc/udev/rules.d/99-usbmount.rules
+  echo "ACTION==\"add\", SUBSYSTEMS==\"usb\", SUBSYSTEM==\"block\", ENV{ID_FS_USAGE}==\"filesystem\", RUN{program}+=\"/usr/bin/systemd-mount --no-block --automount=yes --collect \$devnode /mnt/USB\"" >> /etc/udev/rules.d/99-usbmount.rules
   chmod +x /etc/udev/rules.d/99-usbmount.rules
     
   echo "------------- Changing os-release permissions"
