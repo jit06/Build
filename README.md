@@ -13,7 +13,7 @@ Get the image in the release section and flash it on an emmc or sdcard (at least
 #### How to build
 - use an emmc or sdcard flashed with tiny-ubuntu for odroid C1 (https://github.com/jit06/tiny-ubuntu)
 - Boot the Odroid C1 and ssh to it
-- Clone this repo on the C1 : git clone -b master https://github.com/jit06
+- Clone this repo on the C1 : git clone -b master https://github.com/jit06/Build
 - As root, launch the script build_C1.sh
 - When finished, just reboot
 
