@@ -30,5 +30,3 @@ Main differences are :
 - USB volumes are "hot mounted" to /mnt/USB when inserted
 
 SDCarc and USB are both in the MPD music path, so Volumio can find any supported music format they contain.
-
-Note that Hifi shield modules (snd-soc-pcm5102 and snd-soc-odroid-dac) are not loaded by default. If you need them, you can use rc.local to load them with a modprobe
