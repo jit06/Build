@@ -64,5 +64,8 @@ chmod a+x /bin/volumiossh.sh
 cp volumio/etc/default/ifplugd /etc/default/ifplugd
 #TRIGGERHAPPY
 cp -r volumio/etc/triggerhappy /etc
+#enable HifiShield
+echo "snd-soc-pcm5102" >> /etc/modules
+echo "snd-soc-odroid-dac" >> /etc/modules
 
 echo 'Done Copying Custom Volumio System Files'
