@@ -29,4 +29,4 @@ Main differences are :
 - if using an emmc, any SDCard that is present at boot will be automatically mounted as /mnt/SDCARD
 - USB volumes are "hot mounted" to /mnt/USB when inserted
 
-SDCarc and USB are both in the MPD music path, so Volumio can find any supported music format they contain.
+SDCard and USB are both in the MPD music path, so Volumio can find any supported music format they contain.
